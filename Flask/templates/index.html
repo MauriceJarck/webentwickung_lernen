@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Greeter</title>
+    <link rel="shortcut-icon" href="{{ url_for('static', filename='waving_hand.ico') }}">
+    <link rel="main-icon" href="{{ url_for('static', filename='waving_hand.ico') }}">
+    <link rel="stylesheet" href="../static/style.css/">
+    <meta name="viewport" content="width=device-width, initial-scale=2.0">
+
+</head>
+<body>
+<form action="/" method="post">
+    <h1 style="font-size:3vw;">welcome {{ name }}</h1>
+    <p>Name<input type="text" name="name" /></p>
+    <p>Lastname<input type="text" name="lastname" /></p>
+    <p><input type="submit" value="Submit" /></p>
+</form>
+
+</body>
+</html>
