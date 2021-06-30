@@ -9,14 +9,14 @@ app = Flask(__name__)
 class User(Base):
     __tablename__ = "user"
 
-    id = Column("id", Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
     first_name = Column("first_name", String, unique=True)
     last_name = Column("last_name", String, unique=True)
 
 
 @app.route("/", methods=['POST', 'GET'])
 def get_name():
-    engine = create_engine("sqlite:///new.db", echo=True)
+    engine = create_engine("sqlite:///names.db", echo=True)
     Base.metadata.create_all(bind=engine)
     Session = sessionmaker(bind=engine)
 
@@ -24,20 +24,20 @@ def get_name():
 
     try:
         last_entry = list(session.query(User).all())[-1]
-        _name, _lastname = last_entry.first_name, last_entry.last_name
+        _first_name, _lastname = last_entry.first_name, last_entry.last_name
     except IndexError:
-        _name = _lastname = "unknown name"
+        _first_name = _lastname = "unknown name"
 
     if request.method == "POST":
         _first_name = request.form['name']
         _lastname = request.form['lastname']
-        user = User(id=1, first_name=_name, last_name=_lastname)
+        user = User(first_name=_first_name, last_name=_lastname)
         session.add(user)
         session.commit()
 
     session.close()
 
-    return render_template("index.html", name=_name + " " + _lastname)
+    return render_template("index.html", name=_first_name + " " + _lastname)
 
 
 app.run(host="localhost", port=8080)
