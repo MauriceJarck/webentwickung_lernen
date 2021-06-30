@@ -29,9 +29,9 @@ def get_name():
         _name = _lastname = "unknown name"
 
     if request.method == "POST":
-        _name = request.form['name']
+        _first_name = request.form['name']
         _lastname = request.form['lastname']
-        user = User(id=1, first_name="maurice", last_name="jarck")
+        user = User(id=1, first_name=_name, last_name=_lastname)
         session.add(user)
         session.commit()
 
